@@ -1,0 +1,16 @@
+tunnel_sessions:
+  dev:
+  - host: "my-opensearch-cluster.com"
+    destination_port: 443
+    region: "us-west-2"
+  - host: "my-rds-db.com"
+    destination_port: 443
+    region: "us-west-2"
+  test:
+  - host: "my-opensearch-cluster.com"
+    destination_port: 443
+    region: "us-west-2"
+  staging:
+  - host: "my-opensearch-cluster.com"
+    destination_port: 443
+    region: "us-west-2"
