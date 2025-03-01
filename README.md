@@ -32,7 +32,8 @@ Before you begin, ensure you have the following:
 
 ## ⚡️ Usage
 ```python main.py dev tunnel_sessions.yml```
-👆 **Note**:
+
+##👆 **Note**:
 The program is using the default profile, if you would like to modify it you can call the script that way 
 ```AWS_PROFILE=myprofile python main.py dev tunnel_sessions.yml```
 Or you can add your profile under main.py 
