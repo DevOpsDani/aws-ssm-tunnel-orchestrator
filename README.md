@@ -56,7 +56,7 @@ To open tunnels as specified in the `config.yaml`, run the following command. Th
 ```
 ssm_tunnel start_session dev config.yaml
 ```
-##👆 **Note**:
+## 👆 **Note**:
 The solution assumes that your ```.aws/credentials``` are on order per environment for example
 ```
 [dev]
