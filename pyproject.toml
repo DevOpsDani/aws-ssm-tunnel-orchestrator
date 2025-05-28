@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ssm_tunnel"
+version = "0.1.5"
+description = "SSM Tunneling CLI tool"
+dependencies = [
+    "boto3",
+    "pyyaml"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "tox",
+    "boto3",
+    "pyyaml"
+]
+
+[project.scripts]
+ssm_tunnel = "ssm_tunnel.cli:main"

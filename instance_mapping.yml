@@ -1,6 +1,0 @@
-# Mapping list of bastion servers per environment
-
-instance_mapping:
-  dev: "i-050505050505"
-  test: "i-050505050505"
-  staging: "i-050505050505"

@@ -1,0 +1,18 @@
+tunnel_sessions:
+  dev:
+  - host: "example-destination.com"
+    destination_port: 443
+    local_port: 30123
+  - host: "example-destination.com"
+    destination_port: 443
+    local_port: 30124
+
+  test:
+  - host: "example-destination.com"
+    destination_port: 443
+    local_port: 30125
+
+  staging:
+  - host: "example-destination.com"
+    destination_port: 443
+    local_port: 30126

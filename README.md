@@ -8,44 +8,69 @@ It is designed to be used in CI/CD pipelines to facilitate integration tests wit
 
 </div>
 
-
 ## ⚡️ Quick start
-Before you begin, ensure you have the following:
-
-- Python 3.x
-- AWS CLI configured with sufficient IAM permissions for AWS Systems Manager and EC2 instances.
-- Access to the target AWS environments and the necessary EC2 instances with SSM agent installed and running.
-- The `tunnel_sessions.yml` configuration file that defines the host, destination port, region, and instance information for each environment.
-
-## ⚡️ Setup
-1. **Clone the repository**:
-   ```
-   git clone https://github.com/yourusername/aws-secure-tunnel.git
-   cd aws-secure-tunnel
-   ```
-2. **Configure your AWS CLI profile**:
-   ```aws configure --profile <your-profile>```
-3. **Create a tunnel sessions.yml**:
-   This file should contain mappings for your environments (e.g., dev, test, staging) with details of the instances and ports to forward. Example file in the repo.
-4. **Set up the instance mappings file**:
-   Create a ```instance_mapping.yml``` file that maps each environment to its corresponding EC2 instance, Example file in the repo.
-
+Install the library
+ ```
+ python -m pip install ssm_tunnel
+ ```
 ## ⚡️ Usage
-```python main.py dev tunnel_sessions.yml```
+Tag the instances with correlation to the environment they are deployed, for examle:
+```Key:SSMTunneling, Value:(dev,test,staging,etc...)```
 
-##👆 **Note**:
-The program is using the default profile, if you would like to modify it you can call the script that way 
-```AWS_PROFILE=myprofile python main.py dev tunnel_sessions.yml```
-Or you can add your profile under main.py 
-
+Example usage - this library is configured to use as CLI tool
 ```
-tunnel = ExecuteTunnel(
-    env, 
-    host, 
-    local_port, 
-    dest_port, 
-    instance, 
-    region,
-    profile="myprofile"
-)
+usage: ssm_tunnel start_session [-h] env config_file
+
+positional arguments:
+  env          Environment
+  config_file  Config file path
+
+options:
+  -h, --help   show this help message and exit
+```
+
+Your config file should be structured as follows:
+```
+tunnel_sessions:
+  dev:
+  - host: "example.com"
+    destination_port: 443
+    local_port: 30123
+  - host: "example.com"
+    destination_port: 443
+    local_port: 30124
+
+  test:
+  - host: "example.com"
+    destination_port: 443
+
+  staging:
+  - host: "example.com"
+    destination_port: 443
+
+  cell:
+   - host:
+     destination_port: 443
+```
+To open tunnels as specified in the `config.yaml`, run the following command. This will open two tunnels for the `dev` environment, listening on local ports 30123 and 30124, and forwarding traffic to the configured destination host.
+```
+ssm_tunnel start_session dev config.yaml
+```
+##👆 **Note**:
+The solution assumes that your ```.aws/credentials``` are on order per environment for example
+```
+[dev]
+aws_access_key_id = some keys
+aws_secret_access_key = some secret
+aws_session_token = some session token
+
+[test]
+aws_access_key_id = some keys
+aws_secret_access_key = some secret
+aws_session_token = some session token
+
+[staging]
+aws_access_key_id = some keys
+aws_secret_access_key = some secret
+aws_session_token = some session token
 ```
